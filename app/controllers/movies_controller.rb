@@ -58,21 +58,10 @@ class MoviesController < ApplicationController
   end
 
   def similar
-    #if params[:name].is_a?(String) && params[:name].length > 0
-    #  @movies = Movie.find_all_by_director(params[:name])
-    #else
-    #  redirect_to movies_path() and return
-    #end
-
     @movies = Movie.find_similar_movies(params[:title])
     if @movies.nil? or @movies.size < 1
       flash[:warning] = "'#{params[:title]}' has no director info"
       redirect_to movies_path(), :sort => session[:sort], :ratings => session[:ratings]
-    else
     end
-
-    p "#@movies"
-    # redirect_to :name => params[:name]
-    # render 'similar.html.haml'
   end
 end
