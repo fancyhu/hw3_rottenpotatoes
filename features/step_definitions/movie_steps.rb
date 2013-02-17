@@ -16,7 +16,7 @@ Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.
   #  flunk "Unimplemented"
-  page.body.index(e1) < page.body.index(e2)
+  page.body.index(e1).should < page.body.index(e2)
 end
 
 Then /^I should see all of the movies$/ do
@@ -45,3 +45,9 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
     rating_array.each { |rating| step("I check \"ratings_#{rating}\"") }
   end
 end
+
+Then /^the director of "(.*)" should be "(.*)"$/ do |movie_title, director|
+  movie = Movie.find_by_title(movie_title)
+  movie.director.should == director
+end
+
